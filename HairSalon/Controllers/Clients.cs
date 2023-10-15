@@ -18,12 +18,13 @@ namespace HairSalon.Controllers
 
     public ActionResult Index()
     {
-      List<Client> model = _db.Clients.Include(client => client.Stylist).ToList();
-                          
+      List<Client> model = _db.Clients
+                              .Include(client => client.Stylist)
+                              .ToList();
       return View(model);
     }
 
-    public ActionResult Details(int id)
+        public ActionResult Details(int id)
     {
       Client client = _db.Clients
                           .Include(client => client.Stylist)
@@ -74,10 +75,10 @@ namespace HairSalon.Controllers
     [HttpPost, ActionName("Delete")]
     public ActionResult DeleteConfirmed(int id)
     {
-       Client thisClient = _db.Clients.FirstOrDefault(client => client.ClientId == id);
-       _db.Clients.Remove(thisClient);
-       _db.SaveChanges();
-       return RedirectToAction("Index");
+      Client thisClient = _db.Clients.FirstOrDefault(client => client.ClientId == id);
+      _db.Clients.Remove(thisClient);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
     }
   }
 }
